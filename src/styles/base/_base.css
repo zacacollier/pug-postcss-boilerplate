@@ -1,0 +1,16 @@
+:root {
+	--fontSansSerif: sans-serif;
+	--colorDark: #222;
+}
+
+@define-mixin reset $fz {
+	color: var(--colorDark);
+	font-size: $fz;
+	font-family: var(--fontSansSerif);
+	-webkit-font-smoothing: antialiased;
+}
+
+
+body {
+	@mixin reset 16px;
+}
