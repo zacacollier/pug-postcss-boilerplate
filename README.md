@@ -10,6 +10,6 @@ open http://localhost:8080
 ### Linting
 
 ```
-* [Stylelint] (https://github.com/stylelint/stylelint)
+*[Stylelint] (https://github.com/stylelint/stylelint)
 
 Modify you stylelint.config.js and .stylelintrc for Sublime Text
