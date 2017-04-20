@@ -1,3 +1,16 @@
+# Teamwide ignored files
 node_modules
 dist
 .DS_Store
+
+# storypixel's ignored files
+.tmuxp.yaml
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+.projectile
