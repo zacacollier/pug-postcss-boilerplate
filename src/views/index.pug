@@ -1,52 +1,54 @@
 include template/_head.pug
+
 header
 
 .article-wrapper
+  figure.my-face
+    img(src="../src/img/my-face-what-it-looks-like.jpg")
   .image#screen
     h2.caption First, solve the problem. Then, write the code.
       cite &mdash; John Johnson
-
   .text
     .intro.row
-      <img src="../src/img/signature_ivory.png"/>
-      h2.lead A passionate full-stack developer specializing in building robust applications with React + Redux and Node.
+      .intro__contain
+        img(src="../src/img/signature_ivory.png").logo
+        h2.lead A passionate full-stack developer specializing in building robust applications with React + Redux and Node.
     article.mag.content.credentials.row
       h3 TL;DR
       ul
-        li ❤️ JavaScript
+        li ️❤ JavaScript
         li Knowledgeable in React + Redux
         li Self-starting team player and collaborator
         li Regular Contributor to <a href="https://github.com/zacacollier/"><i class="fa fa-github"></i> Open Source</a>
 
       h3 Skills
+      h4 Languages &amp; Frameworks:
       ul
-        ul
-          h4 Languages & Frameworks:
-            li JavaScript ES6 / ES7
-            li React + Redux
-            li Node.js
-            li Express
-            li MongoDB / Mongoose
-            li jQuery
-            li W3C-Spec HTML & CSSBootstrap 3 / 4
+        li JavaScript ES6 / ES7
+        li React + Redux
+        li Node.js
+        li Express
+        li MongoDB / Mongoose
+        li jQuery
+        li W3C-Spec HTML &amp; CSSBootstrap 3 / 4
 
-        ul
-          h4 Architectures &amp; Strategies:
-            li Experience building and optimizing REST APIs
-            li Firm grasp of developing relational schemae with Mongoose
-            li Knowledgable with implementing authentication via basic JWT strategies or OAuth social integrations
+      h4 Architectures &amp; Strategies:
+      ul
+        li Experience building and optimizing REST APIs
+        li Firm grasp of developing relational schemae with Mongoose
+        li Knowledgable with implementing authentication via basic JWT strategies or OAuth social integrations
 
-        ul
-          h4 Development Best Practices:
-            li Disciplined usage of Git to properly organize project workflow
-            li Knowledge of test-driven development protocols such as Mocha, TAP / tape, Travis and Circle CI
-            li Some experience with Type systems such as Immutable JS, TypeScript, and React PropTypes
-        br
-        ul
-          h4 Linux / BSD:
-            li Firm grasp of Linux / BSD filesystem & common commands
-            li Avid Vim user and contributor to a well-regarded dotfiles repository maintained by Greg Hurrell at Facebook's Relay team
-            li Experience working with several package managers including brew, apt, yum, portage and pacman.
+      h4 Development Best Practices:
+      ul
+        li Disciplined usage of Git to properly organize project workflow
+        li Knowledge of test-driven development protocols such as Mocha, TAP / tape, Travis and Circle CI
+        li Some experience with Type systems such as Immutable JS, TypeScript, and React PropTypes
+
+      h4 Linux / BSD:
+      ul
+        li Firm grasp of Linux / BSD filesystem &amp; common commands
+        li Avid Vim user and contributor to a well-regarded dotfiles repository maintained by Greg Hurrell at Facebook's Relay team
+        li Experience working with several package managers including brew, apt, yum, portage and pacman.
 
       p I am a disciplined, task-driven developer with a passion for excellent code quality and an unwavering dedication to my team. I thrive on seeing my peers succeed. My love for software development is energized by an inherent spirit of collaboration.
 
@@ -67,3 +69,5 @@ header
         li
           <a href="https://medium.com/@zacharycollier/"><i class="fa fa-medium"></i></a>
 
+
+    .tested
