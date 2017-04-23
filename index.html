@@ -7,25 +7,24 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/85/three.min.js"></script>
 </head>
-<header></header>
 <div class="article-wrapper">
-  <div class="art" id="screen">
-    <h2 class="caption" id="info">Placeholder for visualization...Github commits this week: 19
-      <div class="commit" id="commit-desc">The commit</div>
-      <div class="date" id="commit-date">The date</div>
-    </h2>
-    <!-- h2.caption First, solve the problem. Then, write the code.// cite &mdash; John Johnson
-    -->
-  </div>
-  <div class="text">
-    <div class="intro row">
-      <div class="intro__contain">
-        <h1>Zac Collier</h1>
-        <!-- img(src="../src/img/signature_ivory.png").logo-->
-        <!-- h2.lead A passionate full-stack developer specializing in building robust applications with React + Redux and Node.-->
-        <h2 class="lead text-right">A full-stack developer</h2>
+  <figure class="art" id="screen">
+    <div class="caption" id="info">
+      <div class="explanation">Explore my <a href="#">Github</a> activity this month</div>
+      <div class="deets">
+        <div class="commit" id="commit-desc">The commit</div>
+        <!-- #commit-date.date The date-->
+        <div class="delta" id="commit-stats"><span class="added" id="commit-added">x</span><span>&nbsp;/&nbsp;</span><span class="removed" id="commit-removed">y</span></div>
       </div>
     </div>
+  </figure>
+  <section class="text">
+    <header class="intro row">
+      <div class="intro__contain">
+        <h1>Zac Collier</h1>
+        <h2 class="lead text-right">A full-stack developer</h2>
+      </div>
+    </header>
     <article class="content credentials row">
       <h3 class="lead mb4">This week I pushed <em>129</em> lines of code to 3 repositories. I removed 15 lines and added 203 lines.</h3>
       <h4>Notable contributions</h4>
@@ -45,9 +44,6 @@
           <li><a href="https://github.com/zacacollier/"><i class="fa fa-github"></i> React Tools</a></li>
         </ul>
       </section>
-      <!-- section-->
-      <!--   figure.pull-stats.bbb-->
-      <!--     p Quick Stats: 19 <a href="#">commits</a> this week (145 lines added, 20 lines removed)-->
       <section class="mag mb4">
         <h4>TL;DR</h4>
         <ul>
@@ -105,7 +101,6 @@
         <li><a href="https://medium.com/@zacharycollier/"><i class="fa fa-medium"></i></a></li>
       </ul><small class="signature"><img class="logo" src="../src/img/signature_ivory.png"></small>
     </footer>
-    <div class="tested"></div>
-  </div>
+  </section>
   <script src="dist/js/site-v1.js"></script>
 </div>

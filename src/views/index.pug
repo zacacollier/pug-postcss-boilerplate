@@ -1,22 +1,21 @@
 include template/_head.pug
 
-header
-
 .article-wrapper
-  .art#screen
-    h2.caption#info Placeholder for visualization...Github commits this week: 19
-      #commit-desc.commit The commit
-      #commit-date.date The date
-    // h2.caption First, solve the problem. Then, write the code.
-      // cite &mdash; John Johnson
-  .text
-    .intro.row
+  figure.art#screen
+    .caption#info
+      .explanation Explore my <a href="#">Github</a> activity this month
+      .deets
+        #commit-desc.commit The commit
+        // #commit-date.date The date
+        #commit-stats.delta
+          span#commit-added.added x
+          span &nbsp;/&nbsp;
+          span#commit-removed.removed y
+  section.text
+    header.intro.row
       .intro__contain
         h1 Zac Collier
-        // img(src="../src/img/signature_ivory.png").logo
-        // h2.lead A passionate full-stack developer specializing in building robust applications with React + Redux and Node.
         h2.lead.text-right A full-stack developer
-
     article.content.credentials.row
       h3.lead.mb4 This week I pushed <em>129</em> lines of code to 3 repositories. I removed 15 lines and added 203 lines.
       h4 Notable contributions
@@ -33,9 +32,6 @@ header
           li <a href="https://github.com/zacacollier/"><i class="fa fa-github"></i> Aids Awareness Institute</a>
           li <a href="https://github.com/zacacollier/"><i class="fa fa-github"></i> ACA Something</a>
           li <a href="https://github.com/zacacollier/"><i class="fa fa-github"></i> React Tools</a>
-      // section
-      //   figure.pull-stats.bbb
-      //     p Quick Stats: 19 <a href="#">commits</a> this week (145 lines added, 20 lines removed)
       section.mag.mb4
         h4 TL;DR
         ul
@@ -43,7 +39,6 @@ header
           li Knowledgeable in React + Redux
           li Self-starting team player and collaborator
           li Regular Contributor to <a href="https://github.com/zacacollier/"><i class="fa fa-github"></i> Open Source</a>
-
         h4 Skills
         h5 Languages &amp; Frameworks:
         ul
@@ -98,8 +93,4 @@ header
           <a href="https://medium.com/@zacharycollier/"><i class="fa fa-medium"></i></a>
       small.signature
         img(src="../src/img/signature_ivory.png").logo
-
-
-    .tested
-
   script(src='dist/js/site-v1.js')

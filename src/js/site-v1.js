@@ -3,8 +3,6 @@ var container;
 var camera, scene, raycaster, renderer, parentTransform, sphereInter;
 var mouse = new THREE.Vector2();
 var el = document.getElementById('screen');
-var commitDesc = document.getElementById('commit-desc');
-var commitDate = document.getElementById('commit-date');
 var radius = 100,
   theta = 0;
 var currentIntersected;
@@ -14,16 +12,25 @@ animate();
 // Design sidenotes
 // #ffe502 background could go to this with black text
 
+
+// Update the info panel with stats on chosen commit
 function updateInfo(o) {
+  var commitDesc = document.getElementById('commit-desc');
+  var commitDate = document.getElementById('commit-date');
+  var commitAdded = document.getElementById('commit-added');
+  var commitRemoved = document.getElementById('commit-removed');
+
   var matches = gitHubData.filter(function(commit) {
     return commit.lineId === o.id;
   });
 
   var match = matches[0];
 
-  console.log(o.id + '?' + match.commit);
-  commitDesc.innerHTML = "match is "+match.commit;
-  commitDate.innerHTML = "test2";
+  // console.log(o.id + '?' + match.commit);
+  commitDesc.innerHTML = match.commit;
+  commitDate.innerHTML = match.date;
+  commitAdded.innerHTML = "+" + match.lines_added;
+  commitRemoved.innerHTML = "-" + match.lines_removed;
 }
 
 function fakeData() {

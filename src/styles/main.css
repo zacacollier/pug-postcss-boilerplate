@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Lato');
+/* @import url('https://fonts.googleapis.com/css?family=Lato'); */
 /* @import url('https://fonts.googleapis.com/css?family=Bungee|Lato'); */
 @import url('../fonts/simplon-norm.css');
 @import url('../fonts/simplon-mono.css');
@@ -20,9 +20,13 @@ $good: rgba(255, 255, 240, 1);
 $good-blend: hsla(200, 20%, 10%, 1);
 $color-fray: rgba(20, 20, 0, .1);
 $color-highlight: hsla(195, 65%, 50%, 1);
+$color-added: green;
+$color-removed: red;
+
 /* Fonts */
-$sans: "Simplon", "Lato", sans-serif;
-$sans-header: "Simplon Mono", $sans;
+$sans: "Simplon", sans-serif;
+$mono: "Simplon Mono", $sans;
+$sans-header: $mono;
 $sans-callout: "Avenir", $sans;
 $sans-attention: $sans;
 
@@ -172,23 +176,53 @@ em {
 }
 
 .caption {
+  font-family: $mono;
   font-weight: normal;
-  font-size: 1.2em;
+  font-size: 14px;
   text-align: right;
   margin: 0 20px 20px 50%;
   z-index: 10;
-  mix-blend-mode: screen;
-  opacity: .3;
-
-  .art &:hover {
-    opacity: 1;
-  }
+  display: none;
 
   @media (--small-viewport) {
+    display: block;
     margin-right: 10%;
     position: absolute;
     right: 0;
     bottom: 0;
+  }
+}
+
+.explanation {
+  @media (--small-viewport) {
+    &:before {
+      content: "↑ ";
+      opacity: .5;
+    }
+  }
+}
+
+.art:hover .explanation {
+  display: none;
+}
+
+.deets {
+  @media (--small-viewport) {
+    display: none;
+  }
+}
+
+.art:hover .deets {
+  display: block;
+}
+
+.delta {
+  .added {
+    color: $color-added; 
+  }
+
+  .removed {
+    color: $color-removed; 
   }
 }
 
