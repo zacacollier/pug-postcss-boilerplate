@@ -1,3 +1,4 @@
+var gitHubData;
 var container;
 var camera, scene, raycaster, renderer, parentTransform, sphereInter;
 var mouse = new THREE.Vector2();
@@ -10,9 +11,18 @@ var currentIntersected;
 init();
 animate();
 
-function updateInfo(i) {
-  //console.log(o);
-  commitDesc.innerHTML = "test";
+// Design sidenotes
+// #ffe502 background could go to this with black text
+
+function updateInfo(o) {
+  var matches = gitHubData.filter(function(commit) {
+    return commit.lineId === o.id;
+  });
+
+  var match = matches[0];
+
+  console.log(o.id + '?' + match.commit);
+  commitDesc.innerHTML = "match is "+match.commit;
   commitDate.innerHTML = "test2";
 }
 
@@ -32,28 +42,26 @@ function fakeData() {
 
 function init() {
   // temporary until github
-  var data = fakeData();
+  gitHubData = fakeData();
 
   container = document.createElement('div');
   el.appendChild(container);
   camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 10000);
   scene = new THREE.Scene();
   var geometry = new THREE.SphereGeometry(5);
-  var material = new THREE.MeshBasicMaterial({
+  var materialSphere = new THREE.MeshBasicMaterial({
     color: 0x999999
   });
-  sphereInter = new THREE.Mesh(geometry, material);
+  sphereInter = new THREE.Mesh(geometry, materialSphere);
   sphereInter.visible = false;
   scene.add(sphereInter);
   var geometry = new THREE.Geometry();
   var point = new THREE.Vector3();
   var direction = new THREE.Vector3();
+
   // 50 would be lines length
+  // (T)
   for (var i = 0; i < 50; i++) {
-    var materialx = new THREE.LineBasicMaterial({
-            color: "0xFF00FF",
-            lineWidth: 1
-    });
     direction.x += Math.random() - 0.5;
     direction.y += Math.random() - 0.5;
     direction.z += Math.random() - 0.5;
@@ -61,6 +69,28 @@ function init() {
     point.add(direction);
     geometry.vertices.push(point.clone());
   }
+
+  console.log(geometry.vertices.length);
+  for (var i = 0; i < geometry.vertices.length; i++) {
+    var r = i > 20 ? 1 : 0;
+    var g = i < 20 ? 1 : .3;
+    var b = i < 20 ? 0 : .50;
+    geometry.colors[i] = new THREE.Color(r, g, b);
+    // geometry.colors[i] = new THREE.Color(Math.random(), Math.random(), Math.random());
+    // geometry.colors[i+1] = geometry.colors[i];
+  }
+
+  var materialLine = new THREE.LineBasicMaterial({
+    linewidth: 1,
+    color: 0x999999,
+    vertexColors: THREE.VertexColors
+  });
+  // var material = new THREE.LineBasicMaterial({
+  //   linewidth: 1,
+  //   color: 0xffffff,
+  //   vertexColors: THREE.VertexColors
+  // });
+
   parentTransform = new THREE.Object3D();
   parentTransform.position.x = Math.random() * 40 - 20;
   parentTransform.position.y = Math.random() * 40 - 20;
@@ -71,13 +101,19 @@ function init() {
   parentTransform.scale.x = Math.random() + 0.5;
   parentTransform.scale.y = Math.random() + 0.5;
   parentTransform.scale.z = Math.random() + 0.5;
-  for (var i = 0; i < data.length /*50*/ ; i++) {
+
+  // Put a bunch of lines composed of segments we built in (T)
+  for (var i = 0; i < gitHubData.length /*50*/ ; i++) {
     var object;
-    if (Math.random() > 0.5) {
-      object = new THREE.Line(geometry);
+    // var materialx = new THREE.LineBasicMaterial({
+    //   color: i > 25 ? 0xFF0000 : 0x00FF00,
+    // });
+    if (Math.random()) {
+      object = new THREE.Line(geometry, materialLine);
     } else {
       object = new THREE.LineSegments(geometry);
     }
+    gitHubData[i].lineId = object.id;
     object.position.x = Math.random() * 400 - 200;
     object.position.y = Math.random() * 400 - 200;
     object.position.z = Math.random() * 400 - 200;

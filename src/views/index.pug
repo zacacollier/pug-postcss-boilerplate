@@ -3,8 +3,6 @@ include template/_head.pug
 header
 
 .article-wrapper
-  figure.my-face
-    img(src="../src/img/my-face-what-it-looks-like.jpg")
   .art#screen
     h2.caption#info Placeholder for visualization...Github commits this week: 19
       #commit-desc.commit The commit
@@ -38,7 +36,7 @@ header
       // section
       //   figure.pull-stats.bbb
       //     p Quick Stats: 19 <a href="#">commits</a> this week (145 lines added, 20 lines removed)
-      section.mag
+      section.mag.mb4
         h4 TL;DR
         ul
           li ️❤ JavaScript
@@ -85,7 +83,10 @@ header
 
         p I am a classically-trained Contrabass player turned electronic sound artist. When I'm not writing web apps, I can usually be found drinking espresso and programming silly sounds on a Raspberry Pi.
       section
-        p.pull-quote.bbb I have just graduated top of my class, I am currently interested in full-time full-stack positions. I'd <a href="#"class="em">love to chat</a>.
+        figure.pull-quote.illustrated
+          p I have just graduated top of my class, I am currently interested in full-time full-stack positions. I'd <a href="#"class="em">love to chat</a>.
+          cite.my-face
+            img(src="../src/img/my-face-what-it-looks-like.jpg")
 
     footer.tertiary-links.row
       ul.social
