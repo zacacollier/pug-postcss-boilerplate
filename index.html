@@ -5,71 +5,102 @@
   <title>Pug & PostCSS</title>
   <link rel="stylesheet" href="dist/css/style.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/85/three.min.js"></script>
 </head>
-<header></header>
 <div class="article-wrapper">
-  <figure class="my-face"><img src="../src/img/my-face-what-it-looks-like.jpg"></figure>
-  <div class="image" id="screen">
-    <h2 class="caption">First, solve the problem. Then, write the code.
-      <cite>&mdash; John Johnson</cite>
-    </h2>
-  </div>
-  <div class="text">
-    <div class="intro row">
-      <div class="intro__contain"><img class="logo" src="../src/img/signature_ivory.png">
-        <h2 class="lead">A passionate full-stack developer specializing in building robust applications with React + Redux and Node.</h2>
+  <figure class="art" id="screen">
+    <div class="caption" id="info">
+      <div class="explanation">Explore my <a href="#">Github</a> activity this month</div>
+      <div class="deets">
+        <div class="commit" id="commit-desc">The commit</div>
+        <!-- #commit-date.date The date-->
+        <div class="delta" id="commit-stats"><span class="added" id="commit-added">x</span><span>&nbsp;/&nbsp;</span><span class="removed" id="commit-removed">y</span></div>
       </div>
     </div>
-    <article class="mag content credentials row">
-      <h3>TL;DR</h3>
-      <ul>
-        <li>️❤ JavaScript</li>
-        <li>Knowledgeable in React + Redux</li>
-        <li>Self-starting team player and collaborator</li>
-        <li>Regular Contributor to <a href="https://github.com/zacacollier/"><i class="fa fa-github"></i> Open Source</a></li>
-      </ul>
-      <h3>Skills</h3>
-      <h4>Languages &amp; Frameworks:</h4>
-      <ul>
-        <li>JavaScript ES6 / ES7</li>
-        <li>React + Redux</li>
-        <li>Node.js</li>
-        <li>Express</li>
-        <li>MongoDB / Mongoose</li>
-        <li>jQuery</li>
-        <li>W3C-Spec HTML &amp; CSSBootstrap 3 / 4</li>
-      </ul>
-      <h4>Architectures &amp; Strategies:</h4>
-      <ul>
-        <li>Experience building and optimizing REST APIs</li>
-        <li>Firm grasp of developing relational schemae with Mongoose</li>
-        <li>Knowledgable with implementing authentication via basic JWT strategies or OAuth social integrations</li>
-      </ul>
-      <h4>Development Best Practices:</h4>
-      <ul>
-        <li>Disciplined usage of Git to properly organize project workflow</li>
-        <li>Knowledge of test-driven development protocols such as Mocha, TAP / tape, Travis and Circle CI</li>
-        <li>Some experience with Type systems such as Immutable JS, TypeScript, and React PropTypes</li>
-      </ul>
-      <h4>Linux / BSD:</h4>
-      <ul>
-        <li>Firm grasp of Linux / BSD filesystem &amp; common commands</li>
-        <li>Avid Vim user and contributor to a well-regarded dotfiles repository maintained by Greg Hurrell at Facebook's Relay team</li>
-        <li>Experience working with several package managers including brew, apt, yum, portage and pacman.</li>
-      </ul>
-      <p>I am a disciplined, task-driven developer with a passion for excellent code quality and an unwavering dedication to my team. I thrive on seeing my peers succeed. My love for software development is energized by an inherent spirit of collaboration.</p>
-      <p>I work diligently to make myself a dependable resource for those around me by efficiently responding to their needs and contributing thoughtful insight to optimizing long-term implementation strategies.</p>
-      <p class="pull-quote">I thrive on seeing others succeed. My love for software development is energized by an inherent spirit of collaboration.</p>
-      <p>I contribute to Open Source regularly and greet every day with an eagerness to work hard, learn  something new, and give back to the community wherever possible.</p>
-      <p>I am a classically-trained Contrabass player turned electronic sound artist. When I'm not writing web apps, I can usually be found drinking espresso and programming silly sounds on a Raspberry Pi.</p>
+  </figure>
+  <section class="text">
+    <header class="intro row">
+      <div class="intro__contain">
+        <h1>Zac Collier</h1>
+        <h2 class="lead text-right">A full-stack developer</h2>
+      </div>
+    </header>
+    <article class="content credentials row">
+      <h3 class="lead mb4">This week I pushed <em>129</em> lines of code to 3 repositories. I removed 15 lines and added 203 lines.</h3>
+      <h4>Notable contributions</h4>
+      <section class="mag mb4">
+        <h5 class="mt0">Popular Repos</h5>
+        <ul>
+          <li><a href="https://github.com/zacacollier/"><i class="fa fa-github"></i> The Noun Project</a></li>
+          <li><a href="https://github.com/zacacollier/"><i class="fa fa-github"></i> Aids Awareness Institute</a></li>
+          <li><a href="https://github.com/zacacollier/"><i class="fa fa-github"></i> ACA Something</a></li>
+          <li><a href="https://github.com/zacacollier/"><i class="fa fa-github"></i> React Tools</a></li>
+        </ul>
+        <h5>Cool Repos</h5>
+        <ul>
+          <li><a href="https://github.com/zacacollier/"><i class="fa fa-github"></i> The Noun Project</a></li>
+          <li><a href="https://github.com/zacacollier/"><i class="fa fa-github"></i> Aids Awareness Institute</a></li>
+          <li><a href="https://github.com/zacacollier/"><i class="fa fa-github"></i> ACA Something</a></li>
+          <li><a href="https://github.com/zacacollier/"><i class="fa fa-github"></i> React Tools</a></li>
+        </ul>
+      </section>
+      <section class="mag mb4">
+        <h4>TL;DR</h4>
+        <ul>
+          <li>️❤ JavaScript</li>
+          <li>Knowledgeable in React + Redux</li>
+          <li>Self-starting team player and collaborator</li>
+          <li>Regular Contributor to <a href="https://github.com/zacacollier/"><i class="fa fa-github"></i> Open Source</a></li>
+        </ul>
+        <h4>Skills</h4>
+        <h5>Languages &amp; Frameworks:</h5>
+        <ul>
+          <li>JavaScript ES6 / ES7</li>
+          <li>React + Redux</li>
+          <li>Node.js</li>
+          <li>Express</li>
+          <li>MongoDB / Mongoose</li>
+          <li>jQuery</li>
+          <li>W3C-Spec HTML &amp; CSSBootstrap 3 / 4</li>
+        </ul>
+        <h5>Architectures &amp; Strategies:</h5>
+        <ul>
+          <li>Experience building and optimizing REST APIs</li>
+          <li>Firm grasp of developing relational schemae with Mongoose</li>
+          <li>Knowledgable with implementing authentication via basic JWT strategies or OAuth social integrations</li>
+        </ul>
+        <h5>Development Best Practices:</h5>
+        <ul>
+          <li>Disciplined usage of Git to properly organize project workflow</li>
+          <li>Knowledge of test-driven development protocols such as Mocha, TAP / tape, Travis and Circle CI</li>
+          <li>Some experience with Type systems such as Immutable JS, TypeScript, and React PropTypes</li>
+        </ul>
+        <h5>Linux / BSD:</h5>
+        <ul>
+          <li>Firm grasp of Linux / BSD filesystem &amp; common commands</li>
+          <li>Avid Vim user and contributor to a well-regarded dotfiles repository maintained by Greg Hurrell at Facebook's Relay team</li>
+          <li>Experience working with several package managers including brew, apt, yum, portage and pacman.</li>
+        </ul>
+        <p>I am a disciplined, task-driven developer with a passion for excellent code quality and an unwavering dedication to my team. I thrive on seeing my peers succeed. My love for software development is energized by an inherent spirit of collaboration.</p>
+        <p>I work diligently to make myself a dependable resource for those around me by efficiently responding to their needs and contributing thoughtful insight to optimizing long-term implementation strategies.</p>
+        <p class="pull-quote">I thrive on seeing others succeed. My love for software development is energized by an inherent spirit of <em>collaboration</em>.</p>
+        <p>I contribute to Open Source regularly and greet every day with an eagerness to work hard, learn  something new, and give back to the community wherever possible.</p>
+        <p>I am a classically-trained Contrabass player turned electronic sound artist. When I'm not writing web apps, I can usually be found drinking espresso and programming silly sounds on a Raspberry Pi.</p>
+      </section>
+      <section>
+        <figure class="pull-quote illustrated">
+          <p>I have just graduated top of my class, I am currently interested in full-time full-stack positions. I'd <a href="#"class="em">love to chat</a>.</p>
+          <cite class="my-face"><img src="../src/img/my-face-what-it-looks-like.jpg"></cite>
+        </figure>
+      </section>
     </article>
     <footer class="tertiary-links row">
       <ul class="social">
         <li><a href="https://github.com/zacacollier/"><i class="fa fa-github"></i></a></li>
         <li><a href="https://linkedin.com/in/zacacollier"><i class="fa fa-linkedin"></i></a></li>
         <li><a href="https://medium.com/@zacharycollier/"><i class="fa fa-medium"></i></a></li>
-      </ul>
+      </ul><small class="signature"><img class="logo" src="../src/img/signature_ivory.png"></small>
     </footer>
-    <div class="tested"></div>
-  </div>
+  </section>
+  <script src="dist/js/site-v1.js"></script>
 </div>
