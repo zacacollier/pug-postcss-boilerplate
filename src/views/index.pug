@@ -6,7 +6,9 @@ header
   figure.my-face
     img(src="../src/img/my-face-what-it-looks-like.jpg")
   .art#screen
-    h2.caption Placeholder for visualization...Github commits this week: 19
+    h2.caption#info Placeholder for visualization...Github commits this week: 19
+      #commit-desc.commit The commit
+      #commit-date.date The date
     // h2.caption First, solve the problem. Then, write the code.
       // cite &mdash; John Johnson
   .text
@@ -83,7 +85,7 @@ header
 
         p I am a classically-trained Contrabass player turned electronic sound artist. When I'm not writing web apps, I can usually be found drinking espresso and programming silly sounds on a Raspberry Pi.
       section
-        p.pull-quote.bbb I have just graduated top of my class, I am currently interested in full-time full-stack positions. I'd <a href="#" class="em">love to chat</a>.
+        p.pull-quote.bbb I have just graduated top of my class, I am currently interested in full-time full-stack positions. I'd <a href="#"class="em">love to chat</a>.
 
     footer.tertiary-links.row
       ul.social
@@ -98,3 +100,5 @@ header
 
 
     .tested
+
+  script(src='dist/js/site-v1.js')

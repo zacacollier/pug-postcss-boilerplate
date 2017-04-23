@@ -5,12 +5,16 @@
   <title>Pug & PostCSS</title>
   <link rel="stylesheet" href="dist/css/style.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/85/three.min.js"></script>
 </head>
 <header></header>
 <div class="article-wrapper">
   <figure class="my-face"><img src="../src/img/my-face-what-it-looks-like.jpg"></figure>
   <div class="art" id="screen">
-    <h2 class="caption">Placeholder for visualization...Github commits this week: 19</h2>
+    <h2 class="caption" id="info">Placeholder for visualization...Github commits this week: 19
+      <div class="commit" id="commit-desc">The commit</div>
+      <div class="date" id="commit-date">The date</div>
+    </h2>
     <!-- h2.caption First, solve the problem. Then, write the code.// cite &mdash; John Johnson
     -->
   </div>
@@ -89,7 +93,7 @@
         <p>I am a classically-trained Contrabass player turned electronic sound artist. When I'm not writing web apps, I can usually be found drinking espresso and programming silly sounds on a Raspberry Pi.</p>
       </section>
       <section>
-        <p class="pull-quote bbb">I have just graduated top of my class, I am currently interested in full-time full-stack positions. I'd <a href="#" class="em">love to chat</a>.</p>
+        <p class="pull-quote bbb">I have just graduated top of my class, I am currently interested in full-time full-stack positions. I'd <a href="#"class="em">love to chat</a>.</p>
       </section>
     </article>
     <footer class="tertiary-links row">
@@ -101,4 +105,5 @@
     </footer>
     <div class="tested"></div>
   </div>
+  <script src="dist/js/site-v1.js"></script>
 </div>

@@ -15,6 +15,7 @@
 
 /* Hues */
 $evil: rgba(8, 17, 20, 1);
+$almost-evil: hsl(195, 43%, 7%);
 $good: rgba(255, 255, 240, 1);
 $good-blend: hsla(200, 20%, 10%, 1);
 $color-fray: rgba(20, 20, 0, .1);
@@ -73,10 +74,7 @@ a {
       background: rgba(0, 0, 0, .05);
     }
   }
-
 }
-
-
 
 h1 {
   font-size: calc(5vw + 20px);
@@ -143,28 +141,29 @@ em {
 }
 
 .art {
-  background-color: rgba(250,230,100,1);
+  background-color: $almost-evil; /*rgba(250,230,100,1);*/
+  
   position: fixed;
   /* replace this image, temp */
   /* background-image: url("http://davidshearondesign.co.uk/wp-content/uploads/2015/05/Feature-Image3.jpg"); */
-  background-image: url("http://www.petercrnokrak.com/wp-content/uploads/Love_Will_Tear_Us_Apart_Again_1.jpg");
-  background-size: cover;
-  background-position: center;
-  align-self: flex-start;
+  /* background-image: url("http://www.petercrnokrak.com/wp-content/uploads/Love_Will_Tear_Us_Apart_Again_1.jpg"); */
+  /* background-size: cover; */
+  /* background-position: center; */
+  /* align-self: flex-start; */
   height: 100vh;
   color: $good;
   z-index: 1;
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  background-blend-mode: overlay;
+  /* display: flex; */
+  /* align-items: flex-end; */
+  /* justify-content: flex-end; */
+  /* background-blend-mode: overlay; */
   width: 100%;
 
   @media (--small-viewport) {
     background-blend-mode: overlay;
     width: 50vw;
     flex: 0 0 50%;
-    background-color: $good-blend;
+    /* background-color: $good-blend; */
   }
 }
 
@@ -183,12 +182,16 @@ em {
 
   @media (--small-viewport) {
     margin-right: 10%;
+    position: absolute;
+    right: 0;
+    bottom: 0;
   }
 }
 
 .text {
   padding: 30px 0 0;
   z-index: 10;
+  background: $evil;
 
   @media (--small-viewport) {
     padding-top: 0;
@@ -445,4 +448,9 @@ em {
 
 .text-right {
   text-align: right;
+}
+
+
+.art canvas {
+
 }
