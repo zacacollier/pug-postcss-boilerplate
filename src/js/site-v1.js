@@ -1,5 +1,3 @@
-var fetchGitHub = require('./fetchGitHub.js');
-var gitHubData;
 var container;
 var camera, scene, raycaster, renderer, parentTransform, sphereInter;
 var mouse = new THREE.Vector2();
@@ -50,7 +48,7 @@ function fakeData() {
 
 function init() {
   // temporary until github
-  gitHubData = fetchGitHub('zacacollier');
+  gitHubData = gitHubData('zacacollier');
 
   container = document.createElement('div');
   el.appendChild(container);

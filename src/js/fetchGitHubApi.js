@@ -1,7 +1,7 @@
 const initData = {
   events: [],
 }
-const fetchGitHub = (user) => {
+const gitHubData = (user) => {
   axios.get(`https://api.github.com/users/${user}/events`)
     .then(res => (
         {
@@ -17,5 +17,3 @@ const fetchGitHub = (user) => {
     )
   .catch(err => console.error(err))
 }
-
-module.exports = fetchGitHub;
