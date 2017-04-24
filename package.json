@@ -2,6 +2,8 @@
   "name": "gulp-postcss-config",
   "devDependencies": {
     "autoprefixer": "^6.3.6",
+    "babel-cli": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
     "cssnano": "^3.7.1",
     "cssnext": "^1.8.4",
     "gulp": "^3.9.1",
@@ -32,5 +34,9 @@
     "stylelint": "^6.9.0"
   },
   "dependencies": {
+    "axios": "^0.16.1",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-fontawesome": "^1.6.1"
   }
 }
