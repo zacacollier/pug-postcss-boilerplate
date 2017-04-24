@@ -8,11 +8,14 @@ var radius = 100,
   theta = 0;
 var currentIntersected;
 filteredGitHubData = fetchGitHubData('zacacollier')
-window.setTimeout(init, 4000)
-window.setTimeout(animate, 5000)
+window.setTimeout(filteredGitHubData, 100)
+window.setTimeout(fetchGitHubCommits, 3000)
+window.setTimeout(init, 6000)
+window.setTimeout(animate, 7000)
 
 // Design sidenotes
 // #ffe502 background could go to this with black text
+//
 // Babel-compiled API call
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -22,7 +25,7 @@ var initData = {
   events: []
 };
 function gitHubData(user) {
-  axios.get("https://api.github.com/users/" + user + "/events").then(function (res) {
+  axios.get('https://api.github.com/users/' + user + '/events').then(function (res) {
     return initData = _extends({}, initData, {
       events: [].concat(_toConsumableArray(res.data.filter(function (event) {
         return event.payload.commits;
@@ -30,11 +33,27 @@ function gitHubData(user) {
         return event;
       })))
     });
+  }).then(function () {
+    return localStorage.setItem('initData', initData);
   }).catch(function (err) {
     return console.error(err);
   });
-};
+}
+function fetchGitHubCommits() {
+  var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initData;
 
+  return data.events.map(function (event) {
+    return event.payload.commits.map(function (commit) {
+      return axios.get(commit.url).then(function (res) {
+        return initData.events = initData.events.map(function (event) {
+          return _extends({}, event, {
+            stats: res.data.stats
+          });
+        });
+      });
+    });
+  });
+}
 // Update the info panel with stats on chosen commit
 function fetchGitHubData(user) {
   return gitHubData(user);
