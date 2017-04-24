@@ -16,7 +16,7 @@ animate();
 // Update the info panel with stats on chosen commit
 function updateInfo(o) {
   var commitDesc = document.getElementById('commit-desc');
-  var commitDate = document.getElementById('commit-date');
+  // var commitDate = document.getElementById('commit-date');
   var commitAdded = document.getElementById('commit-added');
   var commitRemoved = document.getElementById('commit-removed');
 
@@ -28,7 +28,7 @@ function updateInfo(o) {
 
   // console.log(o.id + '?' + match.commit);
   commitDesc.innerHTML = match.commit;
-  commitDate.innerHTML = match.date;
+  // commitDate.innerHTML = match.date;
   commitAdded.innerHTML = "+" + match.lines_added;
   commitRemoved.innerHTML = "-" + match.lines_removed;
 }
