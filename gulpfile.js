@@ -1,26 +1,26 @@
-var gulp = require('gulp'),
-livereload = require('gulp-livereload'),
-connect = require('gulp-connect'),
-imagemin = require('gulp-imagemin'),
-pngquant = require('imagemin-pngquant'),
-postcss = require('gulp-postcss'),
-sourcemaps = require('gulp-sourcemaps'),
-rename = require('gulp-rename'),
-autoprefixer = require('autoprefixer'),
-cssnano = require('cssnano'),
-short = require('postcss-short'),
-cssnext = require('cssnext'),
-precss = require('precss'),
-stylelint = require('stylelint'),
-config = require('./stylelint.config.js'),
-notify = require('gulp-notify'),
-gutil = require('gutil'),
-concat = require('gulp-concat'),
-uglify = require('gulp-uglify'),
-retinize = require('gulp-retinize'),
-fontmin = require('gulp-fontmin'),
-pug = require('gulp-pug');
-
+const gulp = require('gulp')
+const livereload = require('gulp-livereload')
+const connect = require('gulp-connect')
+const imagemin = require('gulp-imagemin')
+const pngquant = require('imagemin-pngquant')
+const postcss = require('gulp-postcss')
+const sourcemaps = require('gulp-sourcemaps')
+const rename = require('gulp-rename')
+const autoprefixer = require('autoprefixer')
+const cssnano = require('cssnano')
+const short = require('postcss-short')
+const cssnext = require('cssnext')
+const precss = require('precss')
+const stylelint = require('stylelint')
+const config = require('./stylelint.config.js')
+const notify = require('gulp-notify')
+const gutil = require('gutil')
+const concat = require('gulp-concat')
+const uglify = require('gulp-uglify')
+const retinize = require('gulp-retinize')
+const fontmin = require('gulp-fontmin')
+const pug = require('gulp-pug')
+const babel = require('gulp-babel')
 // server connect
 gulp.task('connect', function () {
 	connect.server({
@@ -106,10 +106,20 @@ gulp.task('compressor', function () {
 	.pipe(connect.reload());
 });
 
-// minfy js
+
+// gulp.task('default', () => {
+//     return gulp.src('src/js/**')
+//         .pipe(gulp.dest('dist/js'));
+// });
+// minify
 gulp.task('js', function () {
-	return gulp.src(['src/js/**/*'])
-		.pipe(uglify())
+	return gulp.src(['src/js/**'])
+    .pipe(babel({
+      presets: [
+        'es2015',
+        'stage-2',
+      ].map(require.resolve)
+    }))
 		.pipe(gulp.dest('dist/js'));
 	});
 
