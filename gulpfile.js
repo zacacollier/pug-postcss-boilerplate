@@ -114,12 +114,12 @@ gulp.task('compressor', function () {
 // minify
 gulp.task('js', function () {
 	return gulp.src(['src/js/**'])
-    .pipe(babel({
-      presets: [
-        'es2015',
-        'stage-2',
-      ].map(require.resolve)
-    }))
+//     .pipe(babel({
+//       presets: [
+//         'es2015',
+//         'stage-2',
+//       ].map(require.resolve)
+//    }))
 		.pipe(gulp.dest('dist/js'));
 	});
 

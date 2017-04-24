@@ -1,3 +1,4 @@
+var fetchGitHub = require('./fetchGitHub.js');
 var gitHubData;
 var container;
 var camera, scene, raycaster, renderer, parentTransform, sphereInter;
@@ -49,7 +50,7 @@ function fakeData() {
 
 function init() {
   // temporary until github
-  gitHubData = fakeData();
+  gitHubData = fetchGitHub('zacacollier');
 
   container = document.createElement('div');
   el.appendChild(container);
