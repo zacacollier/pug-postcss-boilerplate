@@ -1,18 +1,44 @@
+"use strict";
 var container;
+var filteredGitHubData;
 var camera, scene, raycaster, renderer, parentTransform, sphereInter;
 var mouse = new THREE.Vector2();
 var el = document.getElementById('screen');
 var radius = 100,
   theta = 0;
 var currentIntersected;
-init();
-animate();
+filteredGitHubData = fetchGitHubData('zacacollier')
+window.setTimeout(init, 4000)
+window.setTimeout(animate, 5000)
 
 // Design sidenotes
 // #ffe502 background could go to this with black text
+// Babel-compiled API call
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var initData = {
+  events: []
+};
+function gitHubData(user) {
+  axios.get("https://api.github.com/users/" + user + "/events").then(function (res) {
+    return initData = _extends({}, initData, {
+      events: [].concat(_toConsumableArray(res.data.filter(function (event) {
+        return event.payload.commits;
+      }).map(function (event) {
+        return event;
+      })))
+    });
+  }).catch(function (err) {
+    return console.error(err);
+  });
+};
 
 // Update the info panel with stats on chosen commit
+function fetchGitHubData(user) {
+  return gitHubData(user);
+}
 function updateInfo(o) {
   var commitDesc = document.getElementById('commit-desc');
   // var commitDate = document.getElementById('commit-date');
@@ -47,9 +73,7 @@ function fakeData() {
 }
 
 function init() {
-  // temporary until github
-  gitHubData = gitHubData('zacacollier');
-
+  console.log(initData)
   container = document.createElement('div');
   el.appendChild(container);
   camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 10000);
@@ -109,7 +133,7 @@ function init() {
   parentTransform.scale.z = Math.random() + 0.5;
 
   // Put a bunch of lines composed of segments we built in (T)
-  for (var i = 0; i < gitHubData.length /*50*/ ; i++) {
+  for (var i = 0; i < initData.length /*50*/ ; i++) {
     var object;
     // var materialx = new THREE.LineBasicMaterial({
     //   color: i > 25 ? 0xFF0000 : 0x00FF00,

@@ -1,10 +1,10 @@
-const initData = {
+let initData = {
   events: [],
 }
 const gitHubData = (user) => {
   axios.get(`https://api.github.com/users/${user}/events`)
     .then(res => (
-        {
+        initData = {
           ...initData,
           events:
             [

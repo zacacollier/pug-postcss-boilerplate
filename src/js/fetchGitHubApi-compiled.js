@@ -9,7 +9,7 @@ var initData = {
 };
 var gitHubData = function gitHubData(user) {
   axios.get("https://api.github.com/users/" + user + "/events").then(function (res) {
-    return _extends({}, initData, {
+    return initData = _extends({}, initData, {
       events: [].concat(_toConsumableArray(res.data.filter(function (event) {
         return event.payload.commits;
       }).map(function (event) {
