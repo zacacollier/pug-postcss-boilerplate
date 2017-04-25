@@ -13,8 +13,8 @@ filteredGitHubData = gitHubData('zacacollier')
 // window.setTimeout(fetchGitHubCommits, 1700)
 window.setInterval(filteredGitHubData, 7200000)
 window.setInterval(fetchGitHubCommits, 7200000)
-window.setTimeout(init, 6000)
-window.setTimeout(animate, 7000)
+window.setTimeout(init, 2000)
+window.setTimeout(animate, 2000)
 
 // Design sidenotes
 // #ffe502 background could go to this with black text
@@ -60,7 +60,9 @@ function fakeData() {
  * for convenience during development
  */
 function init() {
-  console.log(initData)
+  /*
+   * Bootstraps and initializes Three.js utilities
+   */
   container = document.createElement('div');
   el.appendChild(container);
   camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 10000);
@@ -76,27 +78,58 @@ function init() {
   var point = new THREE.Vector3();
   var direction = new THREE.Vector3();
 
-  // 50 would be lines length (e.g. statsResponse[x].stats.additions)
-  // (T)
-  for (var i = 0; i < ghData.statsResponse[1].stats.additions; i++) {
-    direction.x += Math.random() - 0.5;
-    direction.y += Math.random() - 0.5;
-    direction.z += Math.random() - 0.5;
-    direction.normalize().multiplyScalar(10);
-    point.add(direction);
-    geometry.vertices.push(point.clone());
+  /*
+   * (T):
+   * Loop through GitHub data,
+   * calculate and set vertices
+   * for 'additions' and 'deletions'.
+   * (e.g. statsResponse[x].stats.additions)
+   */
+  function calculateVertices(type) {
+    for (var i = 0; i < geometry.vertices.length; i++) {
+      var r = type === 'additions' ? 1 : 0;
+      var g = type === 'deletions' ? 1 : .3;
+      var b = i < 20 ? 0 : .50;
+      console.log(`R: ${r}, G: ${g}, B: ${b}, `)
+      geometry.colors[i] = new THREE.Color(r, g, b);
+      // geometry.colors[i] = new THREE.Color(Math.random(), Math.random(), Math.random());
+      // geometry.colors[i+1] = geometry.colors[i];
+    }
   }
-  // taken from (T) stats.additions
-  console.log(`commit stats: ${geometry.vertices.length}`, geometry.vertices);
-  for (var i = 0; i < geometry.vertices.length; i++) {
-    var r = i > 20 ? 1 : 0;
-    var g = i < 20 ? 1 : .3;
-    var b = i < 20 ? 0 : .50;
-    geometry.colors[i] = new THREE.Color(r, g, b);
-    // geometry.colors[i] = new THREE.Color(Math.random(), Math.random(), Math.random());
-    // geometry.colors[i+1] = geometry.colors[i];
+  // Loop through 'additions'
+  for (let i = 0, j = 0; i < ghData.statsResponse[j].stats.additions; i++) {
+    if (i < 99) {
+      direction.x += Math.random() - 0.5;
+      direction.y += Math.random() - 0.5;
+      direction.z += Math.random() - 0.5;
+      direction.normalize().multiplyScalar(10);
+      point.add(direction);
+      geometry.vertices.push(point.clone());
+      console.log(ghData.statsResponse[j].stats)
+      j++;
+    }
   }
-  console.log(geometry)
+  // calculateRGB for 'additions'
+  calculateVertices('additions');
+
+  // Loop through 'deletions'
+  for (let i = 0, j = 0; i < ghData.statsResponse[j].stats.deletions; i++) {
+    if (i < 99) {
+      direction.x += Math.random() + 0.5;
+      direction.y += Math.random() + 0.5;
+      direction.z += Math.random() + 0.5;
+      direction.normalize().multiplyScalar(10);
+      point.add(direction);
+      geometry.vertices.push(point.clone());
+      console.log(ghData.statsResponse[j].stats)
+      j++;
+    }
+  }
+  // calculateRGB for 'deletions'
+  calculateVertices('deletions');
+  // taken from (T)
+  // console.log(`commit stats: ${geometry.vertices.length}`, geometry.vertices);
+  // console.log(geometry)
   var materialLine = new THREE.LineBasicMaterial({
     linewidth: 1,
     color: 0x999999,
