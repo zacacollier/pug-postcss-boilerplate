@@ -42,12 +42,14 @@ function fetchGitHubCommits() {
   var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initData;
 
   axios.all(data.events.map(function (event) {
-    return event.payload.commits;
-  })).then(function (res) {
-    return initData = _extends({}, initData, {
-      statsResponse: res
+    return event.payload.commits.map(function (commit) {
+      return axios.get(commit.url).then(function (res) {
+        return initData = _extends({}, initData, {
+          statsResponse: [].concat(_toConsumableArray(initData.statsResponse), [res.data])
+        });
+      });
     });
-  }).catch(function (err) {
+  })).catch(function (err) {
     return console.error(err);
   });
 }

@@ -1,4 +1,5 @@
 "use strict";
+console.log(ghData)
 var container;
 var filteredGitHubData;
 var camera, scene, raycaster, renderer, parentTransform, sphereInter;
@@ -7,9 +8,11 @@ var el = document.getElementById('screen');
 var radius = 100,
   theta = 0;
 var currentIntersected;
-filteredGitHubData = fetchGitHubData('zacacollier')
-window.setTimeout(filteredGitHubData, 100)
-window.setTimeout(fetchGitHubCommits, 3000)
+filteredGitHubData = gitHubData('zacacollier')
+window.setTimeout(filteredGitHubData, 300)
+window.setTimeout(fetchGitHubCommits, 1700)
+// window.setInterval(filteredGitHubData, 7200000)
+// window.setInterval(fetchGitHubCommits, 7200000)
 window.setTimeout(init, 6000)
 window.setTimeout(animate, 7000)
 
@@ -17,67 +20,25 @@ window.setTimeout(animate, 7000)
 // #ffe502 background could go to this with black text
 //
 
-/*  Babel-compiled API methods
-*/
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-var initData = {
-  events: [],
-  statsResponse: []
-};
-function gitHubData(user) {
-  axios.get('https://api.github.com/users/' + user + '/events').then(function (res) {
-    return initData = _extends({}, initData, {
-      events: [].concat(_toConsumableArray(res.data.filter(function (event) {
-        return event.payload.commits;
-      }).map(function (event) {
-        return event;
-      })))
-    });
-  }).then(function () {
-    return localStorage.setItem('initData', initData);
-  }).catch(function (err) {
-    return console.error(err);
-  });
-}
-// TODO: cache in localStorage
-function fetchGitHubCommits() {
-  var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initData;
-
-  axios.all(data.events.map(function (event) {
-    return event.payload.commits;
-  })).then(function (res) {
-    return initData = _extends({}, initData, {
-      statsResponse: res
-    });
-  }).catch(function (err) {
-    return console.error(err);
-  });
-}
-// Update the info panel with stats on chosen commit
-function fetchGitHubData(user) {
-  return gitHubData(user);
-}
 function updateInfo(o) {
   var commitDesc = document.getElementById('commit-desc');
   // var commitDate = document.getElementById('commit-date');
   var commitAdded = document.getElementById('commit-added');
   var commitRemoved = document.getElementById('commit-removed');
 
-  var matches = gitHubData.filter(function(commit) {
-    return commit.lineId === o.id;
-  });
+  // var matches = data.filter(function(commit) {
+  //   return commit.lineId === o.id;
+  // });
 
-  var match = matches[0];
-
+  // var match = matches[0];
+  const matches = ghData.statsResponse.forEach(commit => {
+    commitDesc.innerHTML = commit.message;
+    // commitDate.innerHTML = commit.date;
+    commitAdded.innerHTML = "+" + commit.lines_added;
+    commitRemoved.innerHTML = "-" + commit.lines_removed;
+    }
+  )
   // console.log(o.id + '?' + match.commit);
-  commitDesc.innerHTML = match.commit;
-  // commitDate.innerHTML = match.date;
-  commitAdded.innerHTML = "+" + match.lines_added;
-  commitRemoved.innerHTML = "-" + match.lines_removed;
 }
 
 function fakeData() {
@@ -92,7 +53,6 @@ function fakeData() {
     })
   }
   return data;
-  
 }
 
 /* After designated setTimeout,

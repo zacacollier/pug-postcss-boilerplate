@@ -35,11 +35,15 @@ function gitHubData (user) {
 // }
 
 function fetchGitHubCommits(data = initData) {
-  axios.all(data.events.map(event => event.payload.commits))
+  axios.all(data.events.map(event => event.payload.commits.map(commit => axios.get(commit.url)
     .then(res => initData = {
       ...initData,
-       statsResponse: res
+      statsResponse: [
+        ...initData.statsResponse,
+        res.data
+      ]
      }
     )
+  )))
   .catch(err => console.error(err))
 }
