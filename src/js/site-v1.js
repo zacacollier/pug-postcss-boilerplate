@@ -9,10 +9,10 @@ var radius = 100,
   theta = 0;
 var currentIntersected;
 filteredGitHubData = gitHubData('zacacollier')
-window.setTimeout(filteredGitHubData, 300)
-window.setTimeout(fetchGitHubCommits, 1700)
-// window.setInterval(filteredGitHubData, 7200000)
-// window.setInterval(fetchGitHubCommits, 7200000)
+// window.setTimeout(filteredGitHubData, 300)
+// window.setTimeout(fetchGitHubCommits, 1700)
+window.setInterval(filteredGitHubData, 7200000)
+window.setInterval(fetchGitHubCommits, 7200000)
 window.setTimeout(init, 6000)
 window.setTimeout(animate, 7000)
 
@@ -31,11 +31,11 @@ function updateInfo(o) {
   // });
 
   // var match = matches[0];
-  const matches = ghData.statsResponse.forEach(commit => {
-    commitDesc.innerHTML = commit.message;
+  const matches = ghData.statsResponse.forEach(stat => {
+    commitDesc.innerHTML = stat.commit.message;
     // commitDate.innerHTML = commit.date;
-    commitAdded.innerHTML = "+" + commit.lines_added;
-    commitRemoved.innerHTML = "-" + commit.lines_removed;
+    commitAdded.innerHTML = "+" + stat.stats.additions;
+    commitRemoved.innerHTML = "-" + stat.stats.deletions;
     }
   )
   // console.log(o.id + '?' + match.commit);
@@ -190,6 +190,7 @@ function render() {
       currentIntersected.material.linewidth = 1;
     }
     currentIntersected = intersects[0].object;
+    console.log(currentIntersected)
     updateInfo(currentIntersected);
     currentIntersected.material.linewidth = 5;
     sphereInter.visible = true;
