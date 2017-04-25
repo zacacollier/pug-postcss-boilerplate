@@ -1,5 +1,6 @@
 let initData = {
   events: [],
+  statsResponse: []
 }
 function gitHubData (user) {
     axios.get(`https://api.github.com/users/${user}/events`)
@@ -18,18 +19,17 @@ function gitHubData (user) {
       .then(() => localStorage.setItem('initData', initData))
       .catch(err => console.error(err));
 }
-function fetchGitHubCommits (data = localStorage.getItem('initData')) {
-  const parseInitData = JSON.parse(data)
-  return parseInitData.events.map(event => {
-    return event.payload.commits.map(commit => {
-       return axios.get(commit.url)
-         .then(res => initData.events = initData.events.map(event => {
-           return {
-             ...event,
-             stats: res.body.stats
-           }
-         })
-      )
+// TODO: cache in localStorage
+function fetchGitHubCommits (data = initData) {
+  return data.events.map(event => {
+    return event.payload.commits.forEach(commit => {
+       axios.get(commit.url)
+        .then(res => {
+          initData = {
+            ...initData,
+            statsResponse: [...initData.statsResponse, res.stats]
+          }
+        })
     })
   })
 }

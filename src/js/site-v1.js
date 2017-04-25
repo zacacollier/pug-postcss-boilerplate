@@ -22,7 +22,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 var initData = {
-  events: []
+  events: [],
+  statsResponse: []
 };
 function gitHubData(user) {
   axios.get('https://api.github.com/users/' + user + '/events').then(function (res) {
@@ -39,16 +40,15 @@ function gitHubData(user) {
     return console.error(err);
   });
 }
+// TODO: cache in localStorage
 function fetchGitHubCommits() {
   var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initData;
 
   return data.events.map(function (event) {
-    return event.payload.commits.map(function (commit) {
-      return axios.get(commit.url).then(function (res) {
-        return initData.events = initData.events.map(function (event) {
-          return _extends({}, event, {
-            stats: res.data.stats
-          });
+    return event.payload.commits.forEach(function (commit) {
+      axios.get(commit.url).then(function (res) {
+        initData = _extends({}, initData, {
+          statsResponse: [].concat(_toConsumableArray(initData.statsResponse), [res.data])
         });
       });
     });
