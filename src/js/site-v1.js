@@ -76,9 +76,9 @@ function init() {
   var point = new THREE.Vector3();
   var direction = new THREE.Vector3();
 
-  // 50 would be lines length
+  // 50 would be lines length (e.g. statsResponse[x].stats.additions)
   // (T)
-  for (var i = 0; i < 50; i++) {
+  for (var i = 0; i < ghData.statsResponse[1].stats.additions; i++) {
     direction.x += Math.random() - 0.5;
     direction.y += Math.random() - 0.5;
     direction.z += Math.random() - 0.5;
@@ -86,8 +86,8 @@ function init() {
     point.add(direction);
     geometry.vertices.push(point.clone());
   }
-
-  console.log(geometry.vertices.length);
+  // taken from (T) stats.additions
+  console.log(`commit stats: ${geometry.vertices.length}`, geometry.vertices);
   for (var i = 0; i < geometry.vertices.length; i++) {
     var r = i > 20 ? 1 : 0;
     var g = i < 20 ? 1 : .3;
@@ -96,7 +96,7 @@ function init() {
     // geometry.colors[i] = new THREE.Color(Math.random(), Math.random(), Math.random());
     // geometry.colors[i+1] = geometry.colors[i];
   }
-
+  console.log(geometry)
   var materialLine = new THREE.LineBasicMaterial({
     linewidth: 1,
     color: 0x999999,
@@ -107,20 +107,23 @@ function init() {
   //   color: 0xffffff,
   //   vertexColors: THREE.VertexColors
   // });
-
+  // Math.PI is expensive, but we'll retain it here in a variable if needed
+  // var Pi = Math.PI;
+  const pi = 3.1415926535
   parentTransform = new THREE.Object3D();
   parentTransform.position.x = Math.random() * 40 - 20;
   parentTransform.position.y = Math.random() * 40 - 20;
   parentTransform.position.z = Math.random() * 40 - 20;
-  parentTransform.rotation.x = Math.random() * 2 * Math.PI;
-  parentTransform.rotation.y = Math.random() * 2 * Math.PI;
-  parentTransform.rotation.z = Math.random() * 2 * Math.PI;
+  parentTransform.rotation.x = Math.random() * 2 * pi;
+  parentTransform.rotation.y = Math.random() * 2 * pi;
+  parentTransform.rotation.z = Math.random() * 2 * pi;
   parentTransform.scale.x = Math.random() + 0.5;
   parentTransform.scale.y = Math.random() + 0.5;
   parentTransform.scale.z = Math.random() + 0.5;
 
   // Put a bunch of lines composed of segments we built in (T)
-  for (var i = 0; i < initData.length /*50*/ ; i++) {
+  // NB: ghData is loaded from 'src/js/ghData.js'
+  for (var i = 0; i < ghData.statsResponse.length /*50*/ ; i++) {
     var object;
     // var materialx = new THREE.LineBasicMaterial({
     //   color: i > 25 ? 0xFF0000 : 0x00FF00,
@@ -130,13 +133,13 @@ function init() {
     } else {
       object = new THREE.LineSegments(geometry);
     }
-    gitHubData[i].lineId = object.id;
+    ghData.statsResponse[i].sha = object.id;
     object.position.x = Math.random() * 400 - 200;
     object.position.y = Math.random() * 400 - 200;
     object.position.z = Math.random() * 400 - 200;
-    object.rotation.x = Math.random() * 2 * Math.PI;
-    object.rotation.y = Math.random() * 2 * Math.PI;
-    object.rotation.z = Math.random() * 2 * Math.PI;
+    object.rotation.x = Math.random() * 2 * pi;
+    object.rotation.y = Math.random() * 2 * pi;
+    object.rotation.z = Math.random() * 2 * pi;
     object.scale.x = Math.random() + 0.5;
     object.scale.y = Math.random() + 0.5;
     object.scale.z = Math.random() + 0.5;
