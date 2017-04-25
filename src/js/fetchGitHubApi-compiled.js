@@ -24,16 +24,30 @@ function gitHubData(user) {
   });
 }
 // TODO: cache in localStorage
+// function fetchGitHubCommits (data = initData) {
+//   return data.events.map(event => {
+//     return event.payload.commits.forEach(commit => {
+//        axios.get(commit.url)
+//         .then(res => {
+//           initData = {
+//             ...initData,
+//             statsResponse: [...initData.statsResponse, res.stats]
+//           }
+//         })
+//     })
+//   })
+// }
+
 function fetchGitHubCommits() {
   var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initData;
 
-  return data.events.map(function (event) {
-    return event.payload.commits.forEach(function (commit) {
-      axios.get(commit.url).then(function (res) {
-        initData = _extends({}, initData, {
-          statsResponse: [].concat(_toConsumableArray(initData.statsResponse), [res.stats])
-        });
-      });
+  axios.all(data.events.map(function (event) {
+    return event.payload.commits;
+  })).then(function (res) {
+    return initData = _extends({}, initData, {
+      statsResponse: res
     });
+  }).catch(function (err) {
+    return console.error(err);
   });
 }

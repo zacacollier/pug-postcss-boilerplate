@@ -19,26 +19,15 @@ window.setTimeout(animate, 7000)
 
 /*  Babel-compiled API methods
 */
+
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 var initData = {
-  /* Git events, via:
-   * api.github.com/users/<username>/events
-   * */
   events: [],
-  /* After event data is retrieved,
-   * perform GET requests for each commit URL,
-   * then store 'stats' here.
-   * */
   statsResponse: []
 };
-
-/*
- * Populate 'initData.events'
- */
-
 function gitHubData(user) {
   axios.get('https://api.github.com/users/' + user + '/events').then(function (res) {
     return initData = _extends({}, initData, {
@@ -54,21 +43,18 @@ function gitHubData(user) {
     return console.error(err);
   });
 }
-
-/*
- * Populate 'initData.statsResponse'
- */
-function fetchGitHubCommits() {
 // TODO: cache in localStorage
+function fetchGitHubCommits() {
   var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initData;
-  return data.events.map(function (event) {
-    return event.payload.commits.forEach(function (commit) {
-      axios.get(commit.url).then(function (res) {
-        initData = _extends({}, initData, {
-          statsResponse: [].concat(_toConsumableArray(initData.statsResponse), [res.data])
-        });
-      });
+
+  axios.all(data.events.map(function (event) {
+    return event.payload.commits;
+  })).then(function (res) {
+    return initData = _extends({}, initData, {
+      statsResponse: res
     });
+  }).catch(function (err) {
+    return console.error(err);
   });
 }
 // Update the info panel with stats on chosen commit
@@ -106,6 +92,7 @@ function fakeData() {
     })
   }
   return data;
+  
 }
 
 /* After designated setTimeout,
