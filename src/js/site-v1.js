@@ -1,13 +1,21 @@
 "use strict";
-console.log(ghData)
+//console.log(ghData)
 var container;
 var filteredGitHubData;
+var currLineId;
 var camera, scene, raycaster, renderer, parentTransform, sphereInter;
 var mouse = new THREE.Vector2();
 var el = document.getElementById('screen');
 var radius = 100,
-  theta = 0;
+    theta = 0;
 var currentIntersected;
+
+// The red and the green
+const vcolors = {
+  additions : [.4, 1, .4],
+  deletions : [1, .4, .4],
+}
+
 filteredGitHubData = gitHubData('zacacollier')
 // window.setTimeout(filteredGitHubData, 300)
 // window.setTimeout(fetchGitHubCommits, 1700)
@@ -15,44 +23,28 @@ window.setInterval(filteredGitHubData, 7200000)
 window.setInterval(fetchGitHubCommits, 7200000)
 window.setTimeout(init, 2000)
 window.setTimeout(animate, 2000)
+//console.log(filteredGitHubData)
 
 // Design sidenotes
 // #ffe502 background could go to this with black text
 //
 
 function updateInfo(o) {
+  if (o.id === currLineId) {
+    return
+  }
+
   var commitDesc = document.getElementById('commit-desc');
-  // var commitDate = document.getElementById('commit-date');
   var commitAdded = document.getElementById('commit-added');
   var commitRemoved = document.getElementById('commit-removed');
 
-  // var matches = data.filter(function(commit) {
-  //   return commit.lineId === o.id;
-  // });
+  var stat = ghData.statsResponse.find(x => x.sha === o.id);
 
-  // var match = matches[0];
-  const matches = ghData.statsResponse.forEach(stat => {
-    commitDesc.innerHTML = stat.commit.message;
-    // commitDate.innerHTML = commit.date;
-    commitAdded.innerHTML = "+" + stat.stats.additions;
-    commitRemoved.innerHTML = "-" + stat.stats.deletions;
-    }
-  )
-  // console.log(o.id + '?' + match.commit);
-}
+  commitDesc.innerHTML = stat.commit.message;
+  commitAdded.innerHTML = "+" + stat.stats.additions;
+  commitRemoved.innerHTML = "-" + stat.stats.deletions;
 
-function fakeData() {
-  var data = new Array(50);
-  var len = data.length;
-  while (len--) {
-    data[len] = ({
-      created_at: new Date(),
-      commit: "test " + Math.random(),
-      lines_added: Math.round(Math.random() * 100),
-      lines_removed: Math.round(Math.random() * 100)
-    })
-  }
-  return data;
+  return currLineId = o.id
 }
 
 /* After designated setTimeout,
@@ -67,81 +59,16 @@ function init() {
   el.appendChild(container);
   camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 10000);
   scene = new THREE.Scene();
-  var geometry = new THREE.SphereGeometry(5);
+
+  // Make sphere
+  var geometrySphere = new THREE.SphereGeometry(5);
   var materialSphere = new THREE.MeshBasicMaterial({
-    color: 0x999999
+    color: 0x000000
   });
-  sphereInter = new THREE.Mesh(geometry, materialSphere);
+  sphereInter = new THREE.Mesh(geometrySphere , materialSphere);
   sphereInter.visible = false;
   scene.add(sphereInter);
-  var geometry = new THREE.Geometry();
-  var point = new THREE.Vector3();
-  var direction = new THREE.Vector3();
 
-  /*
-   * (T):
-   * Loop through GitHub data,
-   * calculate and set vertices
-   * for 'additions' and 'deletions'.
-   * (e.g. statsResponse[x].stats.additions)
-   */
-  function calculateVertices(type) {
-    for (var i = 0; i < geometry.vertices.length; i++) {
-      var r = type === 'additions' ? 1 : 0;
-      var g = type === 'deletions' ? 1 : .3;
-      var b = i < 20 ? 0 : .50;
-      console.log(`R: ${r}, G: ${g}, B: ${b}, `)
-      geometry.colors[i] = new THREE.Color(r, g, b);
-      // geometry.colors[i] = new THREE.Color(Math.random(), Math.random(), Math.random());
-      // geometry.colors[i+1] = geometry.colors[i];
-    }
-  }
-  // Loop through 'additions'
-  for (let i = 0, j = 0; i < ghData.statsResponse[j].stats.additions; i++) {
-    if (i < 99) {
-      direction.x += Math.random() - 0.5;
-      direction.y += Math.random() - 0.5;
-      direction.z += Math.random() - 0.5;
-      direction.normalize().multiplyScalar(10);
-      point.add(direction);
-      geometry.vertices.push(point.clone());
-      console.log(ghData.statsResponse[j].stats)
-      j++;
-    }
-  }
-  // calculateRGB for 'additions'
-  calculateVertices('additions');
-
-  // Loop through 'deletions'
-  for (let i = 0, j = 0; i < ghData.statsResponse[j].stats.deletions; i++) {
-    if (i < 99) {
-      direction.x += Math.random() + 0.5;
-      direction.y += Math.random() + 0.5;
-      direction.z += Math.random() + 0.5;
-      direction.normalize().multiplyScalar(10);
-      point.add(direction);
-      geometry.vertices.push(point.clone());
-      console.log(ghData.statsResponse[j].stats)
-      j++;
-    }
-  }
-  // calculateRGB for 'deletions'
-  calculateVertices('deletions');
-  // taken from (T)
-  // console.log(`commit stats: ${geometry.vertices.length}`, geometry.vertices);
-  // console.log(geometry)
-  var materialLine = new THREE.LineBasicMaterial({
-    linewidth: 1,
-    color: 0x999999,
-    vertexColors: THREE.VertexColors
-  });
-  // var material = new THREE.LineBasicMaterial({
-  //   linewidth: 1,
-  //   color: 0xffffff,
-  //   vertexColors: THREE.VertexColors
-  // });
-  // Math.PI is expensive, but we'll retain it here in a variable if needed
-  // var Pi = Math.PI;
   const pi = 3.1415926535
   parentTransform = new THREE.Object3D();
   parentTransform.position.x = Math.random() * 40 - 20;
@@ -154,18 +81,58 @@ function init() {
   parentTransform.scale.y = Math.random() + 0.5;
   parentTransform.scale.z = Math.random() + 0.5;
 
-  // Put a bunch of lines composed of segments we built in (T)
-  // NB: ghData is loaded from 'src/js/ghData.js'
-  for (var i = 0; i < ghData.statsResponse.length /*50*/ ; i++) {
-    var object;
-    // var materialx = new THREE.LineBasicMaterial({
-    //   color: i > 25 ? 0xFF0000 : 0x00FF00,
-    // });
-    if (Math.random()) {
-      object = new THREE.Line(geometry, materialLine);
-    } else {
-      object = new THREE.LineSegments(geometry);
+  // console.log(ghData.statsResponse)
+
+  var geometries = []
+  var materialLines = []
+
+  // Make lines (L)
+  for (let i = 0; i < ghData.statsResponse.length; i++) {
+    // ThreeJS building blocks for lines
+    var geometry = new THREE.Geometry();
+    var point = new THREE.Vector3();
+    var direction = new THREE.Vector3();
+
+    // Data stuff
+    var commit = ghData.statsResponse[i];
+    var numAdditions = commit.stats.additions;
+    var numDeletions = commit.stats.deletions;
+    var total = commit.stats.total;
+    // Our line size would be derived from commit size. But some commits are
+    // huge in terms of lines changed, so we must scale things
+    // Scaling doesn't have to be exact. Just sorta accurate for our purposes
+    var ratio = Math.min(numAdditions, numDeletions) / total;
+
+    // Let's redefine our stats locally so we can build a smaller line
+    numAdditions =  Math.min(60, numAdditions * numAdditions/total) | 0;
+    numDeletions =  Math.min(60, numDeletions * numDeletions/total) | 0;
+    total = numAdditions + numDeletions;
+
+    // Make segments which make up the line
+    for (let j = 0; j < total; j++) {
+      direction.x += Math.random() - 0.5;
+      direction.y += Math.random() - 0.5;
+      direction.z += Math.random() - 0.5;
+      direction.normalize().multiplyScalar(30);
+      point.add(direction);
+      geometry.vertices.push(point.clone());
+      // We can get away with this because there are two types only
+      let type = j < numAdditions ? 'additions' : 'deletions';
+      geometry.colors[j] = new THREE.Color(...vcolors[type]);
     }
+    // create the right color values
+    // pick a material and assign the right color values
+    var materialLine = new THREE.LineBasicMaterial({
+      linewidth: 1,
+      color: 0x999999,
+      vertexColors: THREE.VertexColors
+    });
+
+    geometries.push(geometry);
+    materialLines.push(materialLine);
+
+    var object;
+    object = new THREE.Line(geometries[i], materialLines[i]);
     ghData.statsResponse[i].sha = object.id;
     object.position.x = Math.random() * 400 - 200;
     object.position.y = Math.random() * 400 - 200;
@@ -178,6 +145,17 @@ function init() {
     object.scale.z = Math.random() + 0.5;
     parentTransform.add(object);
   }
+
+  // Math.PI is expensive, but we'll retain it here in a variable if needed
+  // var Pi = Math.PI;
+
+  // Put a bunch of lines composed of segments we built in (T)
+  // NB: ghData is loaded from 'src/js/ghData.js'
+
+  // SW: Create the line objects so that the lines appear
+  // Each line is made from a geometry and a material that we
+  // have crafted (L) for each of the N lines in our system
+
   scene.add(parentTransform);
   raycaster = new THREE.Raycaster();
   raycaster.linePrecision = 3;
@@ -226,7 +204,6 @@ function render() {
       currentIntersected.material.linewidth = 1;
     }
     currentIntersected = intersects[0].object;
-    console.log(currentIntersected)
     updateInfo(currentIntersected);
     currentIntersected.material.linewidth = 5;
     sphereInter.visible = true;
@@ -241,3 +218,26 @@ function render() {
   renderer.render(scene, camera);
 }
 
+/*
+ * (T):
+ * Loop through GitHub data,
+ * calculate and set vertices
+ * for 'additions' and 'deletions'.
+ * (e.g. statsResponse[x].stats.additions)
+ */
+/* g is a geometry object */
+function calculateVertices(type, geo, limitTo) {
+  var vcolors = {
+    additions : [0, 1, 0],
+    deletions : [1, 0, 0],
+  }
+
+  var clen = geo && geo.colors.length;
+
+  for (let i = clen; i < limitTo + clen; i++) {
+    geo.colors[i] = new THREE.Color(...vcolors[type]);
+    //console.log(type+':'+vcolors[type])
+  }
+
+  return geo;
+}

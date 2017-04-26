@@ -14,7 +14,7 @@
 */
 
 /* Hues */
-$evil: rgba(8, 17, 20, 1);
+$evil: rgba(8, 17, 20, 1); /* #ffe502  */
 $almost-evil: hsl(195, 43%, 7%);
 $good: rgba(255, 255, 240, 1);
 $good-blend: hsla(200, 20%, 10%, 1);
@@ -149,7 +149,7 @@ em {
 }
 
 .art {
-  background-color: $almost-evil; /*rgba(250,230,100,1);*/
+  /* background-color: #e3e3e3; /\*$almost-evil; *\/ /\*rgba(250,230,100,1);*\/ */
   
   position: fixed;
   /* replace this image, temp */
@@ -168,7 +168,7 @@ em {
   width: 100%;
 
   @media (--small-viewport) {
-    background-blend-mode: overlay;
+    /* background-blend-mode: overlay; */
     width: 50vw;
     flex: 0 0 50%;
     /* background-color: $good-blend; */
@@ -226,10 +226,10 @@ em {
   }
 }
 
-.text {
+.copy {
   padding: 30px 0 0;
   z-index: 10;
-  background: $evil;
+  /* background: $evil; */
 
   @media (--small-viewport) {
     padding-top: 0;
