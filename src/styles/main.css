@@ -7,28 +7,18 @@
 @use postcss-simple-vars;
 @use postcss-custom-media;
 @use postcss-nested;
+
+/* Light theme */
+@import url('./_variables-theme1.css');
+/* Dark theme */
+/* @import url('./_variables-theme2.css'); */
 @custom-media --small-viewport (min-width: 768px);
 
 /*
 // Variables
 */
 
-/* Hues */
-$evil: rgba(8, 17, 20, 1); /* #ffe502  */
-$almost-evil: hsl(195, 43%, 7%);
-$good: rgba(255, 255, 240, 1);
-$good-blend: hsla(200, 20%, 10%, 1);
-$color-fray: rgba(20, 20, 0, .1);
-$color-highlight: hsla(195, 65%, 50%, 1);
-$color-added: green;
-$color-removed: red;
 
-/* Fonts */
-$sans: "Simplon", sans-serif;
-$mono: "Simplon Mono", $sans;
-$sans-header: $mono;
-$sans-callout: "Avenir", $sans;
-$sans-attention: $sans;
 
 %highlighted {
   font-style: normal;
@@ -44,8 +34,8 @@ body {
   position: relative;
   font-size: 18px;
   font-family: $sans; 
-  color: #333;
-  background-color: $evil;
+  color: $color-text;
+  background-color: $color-bg;
 }
 
 img {
@@ -65,13 +55,16 @@ a {
   opacity: .5;
   transition: background-color 0.3s ease;
   color: inherit;
-  background-color: rgba(0, 0, 0, .1);
   background-mix-mode: multiply;
-  padding: .15em .4em;
+
+  i.fa {
+    margin-right: .25rem;
+  }
 
   &:hover {
     opacity: 1;
-    background: rgba(0, 0, 0, .3);
+    /* background: rgba(0, 0, 0, .3); */
+    background-color: rgba(0, 0, 0, .04);
   }
 
   &.em {
@@ -101,7 +94,8 @@ h1 {
 
 h2 {
   /* font-family: $sans-header; */
-  font-size: calc(1vw + 12px);
+  /* font-size: calc(1vw + 12px); */
+  font-size: 18px;
   font-weight: 300;
   font-family: $sans-header;
   line-height: 1;
@@ -145,7 +139,7 @@ em {
 
 .article-wrapper {
   display: flex;
-  background: $evil;
+  background: $color-bg;
 }
 
 .art {
@@ -159,7 +153,7 @@ em {
   /* background-position: center; */
   /* align-self: flex-start; */
   height: 100vh;
-  color: $good;
+  /* color: $good; */
   z-index: 1;
   /* display: flex; */
   /* align-items: flex-end; */
@@ -256,7 +250,6 @@ em {
   font-size: 1.8em;
   font-family: $sans-callout;
   font-weight: 700;
-  color: rgba(0, 0, 0, 0.6);
   padding: 20px 0;
   border-top: 1px solid #aaa;
   border-bottom: 1px solid #aaa;
@@ -291,7 +284,6 @@ em {
   font-size: 15px;
   font-family: $sans-header;
   font-weight: 300;
-  color: rgba(0,0,0,.6);
   padding: 0;
   /* padding-bottom: 1rem; */
   margin-left: 0;
@@ -323,7 +315,7 @@ em {
     border-bottom: 1px solid $color-fray;
     padding-bottom: .5rem;
     margin-bottom: .5rem;
-    color: #888;
+    color: $color-text;
     position: relative;
     /* position: relative; */
     overflow: visible;
@@ -359,7 +351,7 @@ em {
 
 .intro {
   /* color: $evil; */
-  color: $good;
+  color: $color-text;
 
   @media (--small-viewport) {
     position: fixed;
@@ -403,7 +395,7 @@ em {
 }
 
 .credentials {
-  background-color: $good;
+  background-color: $color-fg;
   position: relative;
   padding-top: 60px;
 
@@ -411,12 +403,13 @@ em {
     content: "";
     width: 0;
     height: 0;
-    border-bottom: 20px solid $good;
+    border-bottom: 20px solid $color-fg;
     border-left: 100vw solid transparent;
     position: absolute;
     top: -20px;
     right: 0;
   }
+
 
   @media (--small-viewport) {
     margin-top: 100vh;
@@ -425,7 +418,7 @@ em {
 
     /* slanty slant */
     &:before {
-      border-bottom: 60px solid $good;
+      border-bottom: 60px solid $color-fg;
       position: absolute;
       top: -60px;
       border-left: 50vw solid transparent;
@@ -435,7 +428,7 @@ em {
     &:after {
 	    border-left: 6px solid transparent;
 	    border-right: 6px solid transparent;
-	    border-top: 7px solid $good;
+	    border-top: 7px solid $color-fg;
 	    height: 0;
       bottom: -7px;
       content: "";
