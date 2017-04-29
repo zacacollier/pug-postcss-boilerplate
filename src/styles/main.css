@@ -35,7 +35,7 @@ body {
   font-size: 18px;
   font-family: $sans; 
   color: $color-text;
-  background-color: $color-bg;
+  background-color: $color-text;
 }
 
 img {
@@ -445,7 +445,7 @@ em {
 */
 .tertiary-links {
   font-size: 75%;
-  color: $good;
+  /* color: $good; */
   position: relative;
   z-index: 100;
   padding-bottom: 0;
@@ -484,6 +484,11 @@ em {
 */
 .mt0 {
   margin-top: 0;
+}
+
+/* 3 is arbitray */
+.mb3 {
+  margin-bottom: 1.5rem;
 }
 
 /* 4 is arbitray */
