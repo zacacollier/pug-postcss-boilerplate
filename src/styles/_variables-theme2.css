@@ -1,0 +1,22 @@
+/* Theme 2 for messing around */
+/* Hues */
+$evil: #fbfbf9;
+$almost-evil: hsl(195, 43%, 7%);
+$good: white;
+$neutral-good: #fbfbf9;
+$neutral-evil: #318177; 
+$color-fray: rgba(20, 20, 0, .1);
+$color-highlight: hsla(333, 95%, 50%, 1); /*#f90672;*/
+$color-bg: $neutral-good;
+/* why doesn't the following horseshit work with variables? */
+$color-fg: color(#fbfbf9 alpha(-3%)); 
+$color-text: $neutral-evil;
+$color-added: $color-text;
+$color-removed: $color-highlight;
+
+/* Fonts */
+$sans: "Simplon", sans-serif;
+$mono: "Simplon Mono", $sans;
+$sans-header: $mono;
+$sans-callout: "Avenir", $sans;
+$sans-attention: $sans;

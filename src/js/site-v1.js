@@ -9,11 +9,14 @@ var el = document.getElementById('screen');
 var radius = 100,
     theta = 0;
 var currentIntersected;
+var commitsAdded = document.getElementById('commits-added');
+var commitsRemoved = document.getElementById('commits-removed');
 
-// The red and the green
+// The red and the green. it's possible to pass three numbers to generate a color e.g. 1, 0, .5 hence the arrays
 const vcolors = {
-  additions : [.4, 1, .4],
-  deletions : [1, .4, .4],
+  additions : [0x8de8c3],
+  // additions : [0xffffff],
+  deletions : [0xf90673],
 }
 
 filteredGitHubData = gitHubData('zacacollier')
@@ -40,11 +43,29 @@ function updateInfo(o) {
 
   var stat = ghData.statsResponse.find(x => x.sha === o.id);
 
-  commitDesc.innerHTML = stat.commit.message;
+  // console.log(stat)
+
+  commitDesc.innerHTML = `<a href="${stat.url}" target="_blank">${stat.commit.message}</a>`;
   commitAdded.innerHTML = "+" + stat.stats.additions;
   commitRemoved.innerHTML = "-" + stat.stats.deletions;
 
   return currLineId = o.id
+}
+
+// Summary of activity for the lead. I'm sure there are slicker ways to calculate this
+function updateSummary() {
+  var acount = 0;
+  var dcount = 0;
+
+  for (let i = 0; i < ghData.statsResponse.length; i++) {
+    console.log(ghData.statsResponse[i])
+    var stat = ghData.statsResponse[i].stats;
+    acount += (stat.additions || 0);
+    dcount += (stat.deletions || 0);
+  }
+
+  commitsAdded.innerHTML = acount;
+  commitsRemoved.innerHTML = dcount;
 }
 
 /* After designated setTimeout,
@@ -55,6 +76,7 @@ function init() {
   /*
    * Bootstraps and initializes Three.js utilities
    */
+  updateSummary();
   container = document.createElement('div');
   el.appendChild(container);
   camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 10000);
@@ -63,7 +85,7 @@ function init() {
   // Make sphere
   var geometrySphere = new THREE.SphereGeometry(5);
   var materialSphere = new THREE.MeshBasicMaterial({
-    color: 0x000000
+    color: 0x318177
   });
   sphereInter = new THREE.Mesh(geometrySphere , materialSphere);
   sphereInter.visible = false;
@@ -124,7 +146,6 @@ function init() {
     // pick a material and assign the right color values
     var materialLine = new THREE.LineBasicMaterial({
       linewidth: 1,
-      color: 0x999999,
       vertexColors: THREE.VertexColors
     });
 
