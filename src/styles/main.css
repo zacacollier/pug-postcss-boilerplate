@@ -14,11 +14,6 @@
 /* @import url('./_variables-theme2.css'); */
 @custom-media --small-viewport (min-width: 768px);
 
-/*
-// Variables
-*/
-
-
 
 %highlighted {
   font-style: normal;
@@ -50,16 +45,16 @@ p {
   line-height: 1.7;
 }
 
+.content .fa {
+  margin-right: .25rem;
+}
+
 a {
   text-decoration: none;
   opacity: .5;
   transition: background-color 0.3s ease;
   color: inherit;
   background-mix-mode: multiply;
-
-  i.fa {
-    margin-right: .25rem;
-  }
 
   &:hover {
     opacity: 1;
@@ -143,29 +138,14 @@ em {
 }
 
 .art {
-  /* background-color: #e3e3e3; /\*$almost-evil; *\/ /\*rgba(250,230,100,1);*\/ */
-  
   position: fixed;
-  /* replace this image, temp */
-  /* background-image: url("http://davidshearondesign.co.uk/wp-content/uploads/2015/05/Feature-Image3.jpg"); */
-  /* background-image: url("http://www.petercrnokrak.com/wp-content/uploads/Love_Will_Tear_Us_Apart_Again_1.jpg"); */
-  /* background-size: cover; */
-  /* background-position: center; */
-  /* align-self: flex-start; */
   height: 100vh;
-  /* color: $good; */
   z-index: 1;
-  /* display: flex; */
-  /* align-items: flex-end; */
-  /* justify-content: flex-end; */
-  /* background-blend-mode: overlay; */
   width: 100%;
 
   @media (--small-viewport) {
-    /* background-blend-mode: overlay; */
     width: 50vw;
     flex: 0 0 50%;
-    /* background-color: $good-blend; */
   }
 }
 
@@ -251,8 +231,8 @@ em {
   font-family: $sans-callout;
   font-weight: 700;
   padding: 20px 0;
-  border-top: 1px solid #aaa;
-  border-bottom: 1px solid #aaa;
+  border-top: 1px solid $color-fray;
+  border-bottom: 1px solid $color-fray;
   line-height: 1.5;
   position: relative;
 
@@ -277,20 +257,15 @@ em {
 .pull-stats {
   @extend .pull-quote;
   @media (--small-viewport) {
-  /* margin-left: -10%; */
-  /* margin-right: -10%; */
-  /* padding-left: 10%; */
-  /* padding-right: 10%; */
   font-size: 15px;
   font-family: $sans-header;
   font-weight: 300;
   padding: 0;
-  /* padding-bottom: 1rem; */
   margin-left: 0;
   margin-right: 0;
   margin-bottom: 10%;
   border-top: none;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid $color-fray;
   line-height: 1.5;
   }
 }
@@ -305,8 +280,6 @@ em {
 
     @media (--small-viewport) {
       margin-left: -1.25rem; /* relates to the .25rem below */
-                             /* padding-left: 40px; */
-                             /* list-style-position: outside; */
     }
   }
 
@@ -317,14 +290,9 @@ em {
     margin-bottom: .5rem;
     color: $color-text;
     position: relative;
-    /* position: relative; */
     overflow: visible;
     list-style-position: inside;
-    /* text-indent: -1em; */
-    /* padding-left: 1em; */
-    /* &::marker { */
-    /*   color: red; */
-    /* } */
+
     @media (--small-viewport) {
       &:last-child {
         border: none;
@@ -383,14 +351,10 @@ em {
   @media (--small-viewport) {
     position: absolute;
     z-index: 1991;
-    /* width: 5vw; */
-    /* height: 5vw; */
-    /* left: 50%; */
     left: 0;
     top: 20px;
     overflow: hidden;
     border-radius: 50%;
-    /* transform: translate(-50%, 0); */
   }
 }
 
@@ -410,11 +374,11 @@ em {
     right: 0;
   }
 
-
   @media (--small-viewport) {
     margin-top: 100vh;
     margin-top: calc(100vh + 60px);
     z-index: 1991;
+    padding-bottom: 1rem;
 
     /* slanty slant */
     &:before {
@@ -445,7 +409,6 @@ em {
 */
 .tertiary-links {
   font-size: 75%;
-  /* color: $good; */
   position: relative;
   z-index: 100;
   padding-bottom: 0;
@@ -469,6 +432,8 @@ em {
     &:after {
       content: '/';
       padding-left: .5rem;
+      padding-right: .3rem;
+      opacity: .3;
     }
 
     &:last-child {
@@ -502,9 +467,4 @@ em {
 
 .text-right {
   text-align: right;
-}
-
-
-.art canvas {
-
 }

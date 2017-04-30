@@ -4,7 +4,7 @@ $almost-evil: hsl(195, 43%, 7%);
 $good: white;
 $neutral-good: #fbfbf9;
 $neutral-evil: #318177; 
-$color-fray: rgba(20, 20, 0, .1);
+$color-fray: color(#318177 alpha(-80%));
 $color-highlight: hsla(333, 95%, 50%, 1); /*#f90672;*/
 $color-bg: $neutral-good;
 /* why doesn't the following horseshit work with variables? */
