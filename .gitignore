@@ -1,5 +1,7 @@
 # Teamwide ignored files
 node_modules
+deploy
+deploy*
 dist
 .DS_Store
 notes.md
