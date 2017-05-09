@@ -195,6 +195,16 @@ em {
   }
 }
 
+/* // first letter trick not working. not a big deal */
+.commit-number {
+  color: color(#FFF alpha(-50%));
+
+  &::first-letter {
+    color: $good;
+  }
+}
+
+/* // Brittle code here */
 .commit,
 .explanation,
 .delta {
