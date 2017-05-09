@@ -2,17 +2,22 @@ include template/_head.pug
 
 .article-wrapper
   figure.art#screen
-    .commit-code
-      #code-sample
+    .code-show
+      h4 Explore commit
+        span#commit-number s
+      #commit-code.commit-code
     .caption#info
-      .explanation Explore my <a href="#">Github</a> activity this month
+      .explanation
+        span Explore my <a href="#">Github</a> activity this month
       .deets
-        #commit-desc.commit The commit
+        #commit-desc.commit
+          span The commit
         // #commit-date.date The date
         #commit-stats.delta
-          span#commit-added.added x
-          span &nbsp;/&nbsp;
-          span#commit-removed.removed y
+          span
+            span#commit-added.added x
+            span &nbsp;/&nbsp;
+            span#commit-removed.removed y
   section.copy
     header.intro.row
       .intro__contain
@@ -43,7 +48,7 @@ include template/_head.pug
         h4 TL;DR
         ul
           li ️❤ JavaScript
-          li<i class="devicons devicons-react"></i>&nbsp;Well-versed in React + Redux
+          li <i class="devicons devicons-react"></i>&nbsp;Well-versed in React + Redux
           li Self-starting team player and collaborator
           li Regular Contributor to<span>&nbsp;</span><a href="https://github.com/zacacollier?tab=overview&from=2017-04-01&to=2017-04-26"><i class="fa fa-github"></i>Open Source</a>
         h4 Skills

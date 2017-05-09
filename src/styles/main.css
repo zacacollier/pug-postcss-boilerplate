@@ -147,10 +147,40 @@ em {
   }
 }
 
+.caption,
+.code-show {
+  font-size: 11px;
+}
+
+.code-show {
+  font-family: $mono;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: $good;
+  overflow: scroll;
+  transition: all 1s ease-in-out;
+  z-index: -1;
+  padding: 10%;
+}
+
+.art:hover .code-show {
+  opacity: 1;
+  color: $good;
+
+  @media (--small-viewport) {
+    background: $color-highlight;
+  }
+}
+
+/* .commit-code { */
+/* } */
+
 .caption {
   font-family: $mono;
   font-weight: normal;
-  font-size: 14px;
   text-align: right;
   margin: 0 20px 20px 50%;
   z-index: 10;
@@ -162,6 +192,17 @@ em {
     position: absolute;
     right: 0;
     bottom: 0;
+  }
+}
+
+.commit,
+.explanation,
+.delta {
+  > a,
+  > span {
+    
+    opacity: 1;
+    background-color: $good;
   }
 }
 
