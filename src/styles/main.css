@@ -161,7 +161,7 @@ em {
   right: 0;
   color: $good;
   overflow: scroll;
-  transition: all 1s ease-in-out;
+  transition: all .3s ease-in-out;
   z-index: -1;
   padding: 10%;
 }
