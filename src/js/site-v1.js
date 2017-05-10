@@ -11,6 +11,7 @@ var radius = 100,
 var currentIntersected;
 var commitsAdded = document.getElementById('commits-added');
 var commitsRemoved = document.getElementById('commits-removed');
+var codes = []; // stores code snippets for faster display
 
 // The red and the green. it's possible to pass three numbers to generate a color e.g. 1, 0, .5 hence the arrays
 const vcolors = {
@@ -26,13 +27,14 @@ window.setInterval(filteredGitHubData, 7200000)
 window.setInterval(fetchGitHubCommits, 7200000)
 window.setTimeout(init, 2000)
 window.setTimeout(animate, 2000)
-//console.log(filteredGitHubData)
+console.log(filteredGitHubData)
 
 // Design sidenotes
 // #ffe502 background could go to this with black text
 //
 
 function updateInfo(o) {
+  // We won't redisplay the same info as is displaying currently
   if (o.id === currLineId) {
     return
   }
@@ -40,12 +42,47 @@ function updateInfo(o) {
   var commitDesc = document.getElementById('commit-desc');
   var commitAdded = document.getElementById('commit-added');
   var commitRemoved = document.getElementById('commit-removed');
+  var commitCode = document.getElementById('commit-code');
+  var commitNumber = document.getElementById('commit-number');
 
   var stat = ghData.statsResponse.find(x => x.sha === o.id);
 
-  // console.log(stat)
+  var codeSample;
+  try {
+    function isString(o) {
+      return (typeof o === 'string' || o instanceof String)
+    }
 
-  commitDesc.innerHTML = `<a href="${stat.url}" target="_blank">${stat.commit.message}</a>`;
+    // console.log(stat)
+
+    // codeSample = codes[o.id] || stat.files.reduce( (prev, curr) => {
+    //   prev = ( isString(prev) ? prev : '' ) + (curr.patch || '') + '\n\n'
+    // }, '' );
+
+    codeSample = codes[o.id] || stat.files.reduce(
+      (prev, curr) => {
+        // var next = curr.patch
+        // if (next == '[object Object]') {
+        //   next = 'mango'
+        // }
+        return prev + curr.patch
+      },
+      10
+    );
+
+    // for performance let's store our collated codes
+    if (!codes[o.id]) {
+      codes[o.id] = codeSample; 
+    }
+  } catch (e) {
+    codeSample = 'Codes not available';
+  }
+
+  // console.log(codeSample)
+
+  commitNumber.innerText = ' ' + stat.commit.tree.sha;
+  commitCode.innerText = codeSample === '[object Object]' ? 'empty' : codeSample;
+  commitDesc.innerHTML = `<a title="Explore this commit on Github" href="${stat.html_url}" target="_blank">${stat.commit.message}</a>`;
   commitAdded.innerHTML = "+" + stat.stats.additions;
   commitRemoved.innerHTML = "-" + stat.stats.deletions;
 
@@ -58,7 +95,7 @@ function updateSummary() {
   var dcount = 0;
 
   for (let i = 0; i < ghData.statsResponse.length; i++) {
-    console.log(ghData.statsResponse[i])
+    // console.log(ghData.statsResponse[i])
     var stat = ghData.statsResponse[i].stats;
     acount += (stat.additions || 0);
     dcount += (stat.deletions || 0);
@@ -85,7 +122,8 @@ function init() {
   // Make sphere
   var geometrySphere = new THREE.SphereGeometry(5);
   var materialSphere = new THREE.MeshBasicMaterial({
-    color: 0x318177
+    // color: 0x318177
+    color: 0xFFFFFF
   });
   sphereInter = new THREE.Mesh(geometrySphere , materialSphere);
   sphereInter.visible = false;
